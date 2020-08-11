@@ -52,10 +52,10 @@ public class CompteBancaireService implements ICompteBancaireService {
 
 
     @Override
-    public Optional<CompteBancaire> findByUtilisateurId(int utilisateurId) { // find the bank account by the user id
-        Optional<CompteBancaire> findCompteBancaireById = compteBancaireRepository.findByUtilisateurId(utilisateurId);
+    public Optional <List<CompteBancaire>> findByUtilisateurId(int utilisateurId) { // find the bank account by the user id
+        Optional <List<CompteBancaire>> findCompteBancaireById = compteBancaireRepository.findByUtilisateurId(utilisateurId);
         if (Boolean.FALSE.equals(findCompteBancaireById.isPresent())) {
-            throw new ResourceNotFoundException("Ce compte bancaire n'existe pas");
+            throw new ResourceNotFoundException("Cette utilisateur n'a pas de compte bancaire");
         }
         return findCompteBancaireById;
 

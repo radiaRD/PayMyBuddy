@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 
 @RestController
@@ -40,6 +41,7 @@ public class UtilisateurController {
         return utilisateurService.updateUtilisateur(id, utilisateur);
     }
 
+
     @DeleteMapping("/utilisateur/{id}")
     public ResponseEntity<?> deleteUtilisateur(@PathVariable(value = "id") int id) {
         utilisateurService.deleteUtilisateur(id);
@@ -51,8 +53,25 @@ public class UtilisateurController {
         return utilisateurService.findByEmail(email);
     }
 
-    @GetMapping("/utilisateurs/{email}/{motDePasse}")
+    @GetMapping("/utilisateurs/{email}/{motDePasse}") // get the user with his email and password
     public Optional<Utilisateur> findByEmailAndMotDePasse(@PathVariable(value = "email") String email, @PathVariable(value = "motDePasse") String motDePasse) {
         return utilisateurService.findByEmailAndMotDePasse(email, motDePasse);
+    }
+
+    @PutMapping("/utilisateurContact/{id}") //add a user in the list of contact
+    public Utilisateur addContact(@PathVariable(value = "id") int id,
+                                  @Valid @RequestBody Utilisateur contact) {
+        return utilisateurService.addContact(id, contact);
+    }
+
+    @DeleteMapping("/utilisateurContact/{id}/{destinataireId}") //delete a user from the list of contact
+    public ResponseEntity<?> deleteContact(@PathVariable(value = "id") int id, @PathVariable(value = "destinataireId") int destinataireId) {
+        utilisateurService.deleteContact(id, destinataireId);
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/utilisateurContact/{id}") // find all contact with utilisateur id
+    public Set<Utilisateur> getContactById(@PathVariable(value = "id") int id) {
+        return utilisateurService.findAllContact(id);
     }
 }

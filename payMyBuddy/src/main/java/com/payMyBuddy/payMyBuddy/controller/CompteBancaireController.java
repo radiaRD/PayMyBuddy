@@ -48,7 +48,7 @@ public class CompteBancaireController {
     }
 
     @GetMapping("/compteBancaireUtilisateurId/{utilisateurId}")
-    public Optional<CompteBancaire> findByUtilisateurId(@PathVariable(value = "utilisateurId") int utilisateurId) {
+    public Optional<List<CompteBancaire>> findByUtilisateurId(@PathVariable(value = "utilisateurId") int utilisateurId) {
         return compteBancaireService.findByUtilisateurId(utilisateurId);
     }
 }

@@ -32,7 +32,7 @@ public class Mouvement implements Serializable {
     @JoinColumn(name = "utilisateur_id", nullable = false)
     private Utilisateur utilisateur;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "compte_Bancaire_id")
     private CompteBancaire compteBancaire;
 

@@ -21,7 +21,7 @@ public class CompteBancaire implements Serializable {
     public CompteBancaire() {
     }
 
-    ;
+
 
     public CompteBancaire(int compteBancaireId, String IBAN, Utilisateur utilisateur) {
         this.compteBancaireId = compteBancaireId;

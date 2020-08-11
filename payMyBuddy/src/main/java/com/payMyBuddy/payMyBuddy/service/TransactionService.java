@@ -92,8 +92,8 @@ public class TransactionService implements ITransactionService {
         if (!utilisateur.getContact().contains(utilisateur1)) {
             throw new RuntimeException("Impossible de faire un virement, l'utilisateur ne fait pas partie des contacts");
         }
-        depot(id2, montant);
-        retrait(id1, montant);
-        prelevement(id1, montant, transaction);
+        depot(id2, montant); // deposit the amount of the transaction in contact account
+        retrait(id1, montant); // withdrawal the amount of the transaction and fees for the user account
+        prelevement(id1, montant, transaction); // create a new "prelevement"
     }
 }
