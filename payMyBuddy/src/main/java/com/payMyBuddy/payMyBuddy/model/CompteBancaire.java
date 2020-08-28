@@ -1,6 +1,9 @@
 package com.payMyBuddy.payMyBuddy.model;
 
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -8,10 +11,13 @@ import java.io.Serializable;
 @Entity
 @Table(name = "compte_bancaire")
 public class CompteBancaire implements Serializable {
+    private static final Logger logger = LogManager.getLogger(CompteBancaire.class);
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int compteBancaireId;
 
+    @Column(unique = true)
     private String IBAN;
 
     @ManyToOne
@@ -20,7 +26,6 @@ public class CompteBancaire implements Serializable {
 
     public CompteBancaire() {
     }
-
 
 
     public CompteBancaire(int compteBancaireId, String IBAN, Utilisateur utilisateur) {

@@ -3,6 +3,8 @@ package com.payMyBuddy.payMyBuddy.model;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -15,13 +17,14 @@ import java.util.Set;
 @Table(name = "utilisateur")
 @JsonIdentityInfo(scope = Utilisateur.class, generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Utilisateur implements Serializable {
+    private static final Logger logger = LogManager.getLogger(Utilisateur.class);
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String nom;
     private String prenom;
-    private String DateDeNaissance;
+    private String dateDeNaissance;
     private String telephone;
     private String adresse;
     private String ville;
@@ -47,11 +50,11 @@ public class Utilisateur implements Serializable {
     }
 
 
-    public Utilisateur(int id, String nom, String prenom, String dateDeNaissance, String telephone, String adresse, String ville, int codePostal, @NotBlank String email, @NotBlank String motDePasse, @NotBlank boolean statutConnexion, double soldeDisponible, @NotBlank String role) {
+    public Utilisateur(int id, String nom, String prenom, String dateDeNaissance, String telephone, String adresse, String ville, int codePostal, @NotBlank String email, @NotBlank String motDePasse, @NotBlank boolean statutConnexion, double soldeDisponible, @NotBlank String role, Set<Utilisateur> contact) {
         this.id = id;
         this.nom = nom;
         this.prenom = prenom;
-        this.DateDeNaissance = dateDeNaissance;
+        this.dateDeNaissance = dateDeNaissance;
         this.telephone = telephone;
         this.adresse = adresse;
         this.ville = ville;
@@ -61,6 +64,7 @@ public class Utilisateur implements Serializable {
         this.statutConnexion = statutConnexion;
         this.soldeDisponible = soldeDisponible;
         this.role = role;
+        this.contact = contact;
     }
 
     public int getId() {
@@ -88,11 +92,11 @@ public class Utilisateur implements Serializable {
     }
 
     public String getDateDeNaissance() {
-        return DateDeNaissance;
+        return dateDeNaissance;
     }
 
     public void setDateDeNaissance(String dateDeNaissance) {
-        DateDeNaissance = dateDeNaissance;
+        this.dateDeNaissance = dateDeNaissance;
     }
 
     public String getTelephone() {

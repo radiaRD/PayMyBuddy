@@ -7,6 +7,8 @@ import com.payMyBuddy.payMyBuddy.model.Utilisateur;
 import com.payMyBuddy.payMyBuddy.repository.PrelevementRepository;
 import com.payMyBuddy.payMyBuddy.repository.TransactionRepository;
 import com.payMyBuddy.payMyBuddy.repository.UtilisateurRepository;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -18,6 +20,8 @@ import java.util.List;
 @Service
 @Transactional
 public class TransactionService implements ITransactionService {
+    private static final Logger logger = LogManager.getLogger(TransactionService.class);
+
     @Autowired
     TransactionRepository transactionRepository;
 
@@ -29,32 +33,37 @@ public class TransactionService implements ITransactionService {
 
 
     public List<Transaction> getAllTransaction() {
+        logger.info("Get all bank transactions");
         return transactionRepository.findAll();
     }
 
     public Transaction getTransactionByNumero(int numeroTransaction) {
+        logger.info("Get a transaction by numeroTransaction : " + numeroTransaction);
         return transactionRepository.findById(numeroTransaction)
                 .orElseThrow(() -> new ResourceNotFoundException("Transaction", "numeroTransaction", numeroTransaction));
     }
 
     public Transaction createTransaction(Transaction transaction) {
+        logger.info("Create a new transaction");
         return transactionRepository.save(transaction);
     }
 
-    public ResponseEntity<?> deleteTransaction(int numeroTransaction) {
+    public void deleteTransaction(int numeroTransaction) {
+        logger.info(" Delete the transaction by numeroTransaction : " + numeroTransaction);
         Transaction transaction = transactionRepository.findById(numeroTransaction)
                 .orElseThrow(() -> new ResourceNotFoundException("Transaction", "numeroTransaction", numeroTransaction));
         transactionRepository.delete(transaction);
-        return ResponseEntity.ok().build();
     }
 
     public Utilisateur consulterSolde(int id) {
+        logger.info("Find the user account by user id : " + id);
         return utilisateurRepository.findById(id)  // find the user by id
                 .orElseThrow(() -> new ResourceNotFoundException("Utilisateur", "id", id));
     }
 
     @Override
     public void depot(int id, double montant) {
+        logger.info("Deposit an amount of : "+ montant+ " in the user account with id : " +id);
         Utilisateur utilisateur = consulterSolde(id);
         utilisateur.setSoldeDisponible(utilisateur.getSoldeDisponible() + montant);// deposit of the transaction amount
         utilisateurRepository.save(utilisateur);
@@ -63,6 +72,7 @@ public class TransactionService implements ITransactionService {
 
     @Override
     public void retrait(int id, double montant) {
+        logger.info("Withdraw an amount of : " +montant+ " from the user account with id : " +id);
         Utilisateur utilisateur = consulterSolde(id);
         if (utilisateur.getSoldeDisponible() < montant) {
             throw new RuntimeException("Impossible de faire un virement, solde insuffisant");
@@ -73,6 +83,7 @@ public class TransactionService implements ITransactionService {
 
     @Override
     public void prelevement(int id, double montant, Transaction transaction) {
+        logger.info("Withdraw an amount of : " +(montant*0.5)+ " from the user account with id : " +id);
         Utilisateur utilisateur = consulterSolde(id);
         Prelevement prelevement = new Prelevement();
         prelevement.setMontantPrelevement(montant * 0.05);  // 5% fees for each transaction
@@ -83,6 +94,7 @@ public class TransactionService implements ITransactionService {
 
     @Override
     public void virement(int id1, int id2, double montant, Transaction transaction) {
+        logger.info("Make a bank transfer of : "+montant+" from user account with id : " +id1+ " to user account with id : " +id2);
         if (id1 == id2) {
             throw new RuntimeException("Impossible de faire un virement sur le même compte");
         }

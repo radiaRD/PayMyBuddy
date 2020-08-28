@@ -1,6 +1,8 @@
 package com.payMyBuddy.payMyBuddy.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -14,6 +16,7 @@ import java.util.Date;
 @JsonIgnoreProperties(value = {"datePrelevement"},
         allowGetters = true)
 public class Prelevement implements Serializable {
+    private static final Logger logger = LogManager.getLogger(Prelevement.class);
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -2,6 +2,8 @@ package com.payMyBuddy.payMyBuddy.model;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -16,6 +18,9 @@ import java.util.Date;
 @JsonIgnoreProperties(value = {"date"},
         allowGetters = true)
 public class Mouvement implements Serializable {
+
+    private static final Logger logger = LogManager.getLogger(Mouvement.class);
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int operationId;
@@ -33,7 +38,7 @@ public class Mouvement implements Serializable {
     private Utilisateur utilisateur;
 
     @ManyToOne
-    @JoinColumn(name = "compte_Bancaire_id")
+    @JoinColumn(name = "compte_Bancaire_id", nullable = false)
     private CompteBancaire compteBancaire;
 
 
