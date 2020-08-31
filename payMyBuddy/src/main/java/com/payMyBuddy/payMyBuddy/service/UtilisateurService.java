@@ -5,7 +5,6 @@ import com.payMyBuddy.payMyBuddy.model.MyUtilisateurPrincipal;
 import com.payMyBuddy.payMyBuddy.model.Utilisateur;
 import com.payMyBuddy.payMyBuddy.repository.UtilisateurRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.core.Authentication;
@@ -94,15 +93,6 @@ public class UtilisateurService implements UserDetailsService {
         return utilisateur;
 
     }
-
-
-//    public Utilisateur findByEmailAndMotDePasse(String email, String motDePasse) { // get the user with his email and password
-//        Utilisateur utilisateur = utilisateurRepository.findByEmailAndMotDePasse(email,passwordEncoder.encode(motDePasse));
-//        if (utilisateur == null) {
-//            throw new ResourceNotFoundException("Email ou mot de passe erroné");
-//        }
-//        return utilisateur;
-//    }
 
     public void login(String email, String motDePasse, final HttpServletRequest request) { // get the user with his email and password
         UsernamePasswordAuthenticationToken authReq =

@@ -8,7 +8,6 @@ import com.payMyBuddy.payMyBuddy.repository.UtilisateurRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -49,7 +48,7 @@ public class MouvementService implements IMouvementService {
 
     @Override
     public void depot(int id, double montant) {
-        logger.info("Deposit an amount of : "+ montant+ " in the user account with id : " +id);
+        logger.info("Deposit an amount of : " + montant + " in the user account with id : " + id);
         Utilisateur utilisateur = consulterSolde(id);
         utilisateur.setSoldeDisponible(utilisateur.getSoldeDisponible() + montant);  // transfer an amount from the bank account to the user account
         utilisateurRepository.save(utilisateur);
@@ -58,7 +57,7 @@ public class MouvementService implements IMouvementService {
 
     @Override
     public void retrait(int id, double montant) {
-        logger.info("Withdraw an amount of : " +montant+ " from the user account with id : " +id);
+        logger.info("Withdraw an amount of : " + montant + " from the user account with id : " + id);
         Utilisateur utilisateur = consulterSolde(id);
         if (utilisateur.getSoldeDisponible() < montant) {
             throw new RuntimeException("Impossible de faire un virement, solde insuffisant");

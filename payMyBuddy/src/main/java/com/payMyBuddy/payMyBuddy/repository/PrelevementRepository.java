@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface PrelevementRepository extends JpaRepository<Prelevement, Integer> {
-     Logger logger = LogManager.getLogger(PrelevementRepository.class);
+    Logger logger = LogManager.getLogger(PrelevementRepository.class);
 }

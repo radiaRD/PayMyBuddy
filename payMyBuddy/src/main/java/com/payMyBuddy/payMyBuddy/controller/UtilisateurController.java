@@ -22,7 +22,7 @@ import java.util.Set;
 public class UtilisateurController {
     private static final Logger logger = LogManager.getLogger(UtilisateurController.class);
 
-    @Resource(name="authenticationManager")
+    @Resource(name = "authenticationManager")
     private AuthenticationManager authManager;
 
     @Autowired
@@ -69,15 +69,9 @@ public class UtilisateurController {
     }
 
 
-//    @GetMapping("/utilisateurs/{email}/{motDePasse}") // get the user with his email and password
-//    public void findByEmailAndMotDePasse(@PathVariable(value = "email") String email, @PathVariable(value = "motDePasse") String motDePasse) {
-//        logger.info("Get the user by the email and the password : " + email + "\t" + " and "+ motDePasse);
-//        utilisateurService.login(email, motDePasse);
-//    }
-//
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public void login(@RequestParam(value ="email",required = false) final String email, @RequestParam(value ="motDePasse",required = false) final String motDePasse,final HttpServletRequest request) {
-        utilisateurService.login(email,motDePasse,request);
+    public void login(@RequestParam(value = "email", required = false) final String email, @RequestParam(value = "motDePasse", required = false) final String motDePasse, final HttpServletRequest request) {
+        utilisateurService.login(email, motDePasse, request);
     }
 
 
@@ -90,12 +84,12 @@ public class UtilisateurController {
 
     @DeleteMapping("/utilisateurContact/{id}/{destinataireId}") //delete a user from the contact list
     public ResponseEntity<?> deleteContact(@PathVariable(value = "id") int id, @PathVariable(value = "destinataireId") int destinataireId) {
-        logger.info("Delete the user from the contact list by the user id and the contact id : " + id + "\t" + " and "+ destinataireId);
+        logger.info("Delete the user from the contact list by the user id and the contact id : " + id + "\t" + " and " + destinataireId);
         utilisateurService.deleteContact(id, destinataireId);
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/utilisateurContact/{id}") // find all contacts with utilisateur id
+    @GetMapping("/utilisateurContact/{id}") // find contacts with user id
     public Set<Utilisateur> getContactById(@PathVariable(value = "id") int id) {
         logger.info("Find contacts by the user id: " + id);
         return utilisateurService.findAllContact(id);

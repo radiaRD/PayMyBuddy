@@ -11,8 +11,6 @@ import org.springframework.stereotype.Repository;
 public interface UtilisateurRepository extends JpaRepository<Utilisateur, Integer> {
     Logger logger = LogManager.getLogger(UtilisateurRepository.class);
 
-    Utilisateur findByEmailAndMotDePasse(String email, String motDePasse);
-
     Utilisateur findByEmail(String email);
 
 }

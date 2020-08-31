@@ -119,13 +119,6 @@ class PayMyBuddyApplicationTests {
                 .andExpect(jsonPath("$.prenom", is("Sophia")));
     }
 
-//    @Test
-//    void loginTest() throws Exception {
-//        this.mockMvc.perform(get("/api/utilisateurs/soboyd@email.com/Boyd83")).andDo(print()).andExpect(status().isOk())
-//                .andExpect(jsonPath("$.id", is(1)))
-//                .andExpect(jsonPath("$.nom", is("Boyd")))
-//                .andExpect(jsonPath("$.prenom", is("Sophia")));
-//    }
 
     @Test
     public void login() throws Exception {

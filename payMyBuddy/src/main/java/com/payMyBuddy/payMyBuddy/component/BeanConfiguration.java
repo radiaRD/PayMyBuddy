@@ -1,29 +1,28 @@
 package com.payMyBuddy.payMyBuddy.component;
 
-        import org.springframework.beans.factory.annotation.Autowired;
-        import org.springframework.context.annotation.Bean;
-        import org.springframework.context.annotation.ComponentScan;
-        import org.springframework.context.annotation.Configuration;
-        import org.springframework.context.annotation.Lazy;
-        import org.springframework.http.HttpMethod;
-        import org.springframework.security.authentication.AuthenticationManager;
-        import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-        import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-        import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-        import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-        import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-        import org.springframework.security.config.http.SessionCreationPolicy;
-        import org.springframework.security.core.userdetails.UserDetailsService;
-        import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-        import org.springframework.security.crypto.password.PasswordEncoder;
-        import org.springframework.security.web.savedrequest.NullRequestCache;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.savedrequest.NullRequestCache;
 
 
 @Configuration
 @EnableWebSecurity
 @ComponentScan
-public class BeanConfiguration extends WebSecurityConfigurerAdapter
-{
+public class BeanConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private UserDetailsService userDetailsService;
@@ -64,16 +63,12 @@ public class BeanConfiguration extends WebSecurityConfigurerAdapter
                 authorizeRequests().antMatchers(HttpMethod.GET, "/utilisateur/**").hasAnyRole("ADMIN", "USER")
                 .antMatchers(HttpMethod.POST, "/utilisateur/**").hasAnyRole("ADMIN", "USER")
                 .antMatchers(HttpMethod.PUT, "/utilisateur/**").hasRole("ADMIN")
-//                .antMatchers("/login*").permitAll()
-//                .anyRequest().authenticated()
                 .antMatchers(HttpMethod.DELETE, "/utilisateur/**").hasRole("ADMIN")
                 .and().
                 requestCache().requestCache(new NullRequestCache()).and().
                 cors().and().
                 csrf().disable();
     }
-
-
 }
 
 

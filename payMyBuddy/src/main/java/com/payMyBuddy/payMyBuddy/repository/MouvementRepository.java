@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface MouvementRepository extends JpaRepository<Mouvement, Integer> {
-     Logger logger = LogManager.getLogger(MouvementRepository.class);
+    Logger logger = LogManager.getLogger(MouvementRepository.class);
 }

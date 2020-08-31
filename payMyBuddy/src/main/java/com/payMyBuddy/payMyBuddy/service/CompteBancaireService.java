@@ -16,7 +16,7 @@ import java.util.List;
 
 @Service
 @Transactional
-public class CompteBancaireService  {
+public class CompteBancaireService {
     private static final Logger logger = LogManager.getLogger(CompteBancaireService.class);
 
     @Autowired
